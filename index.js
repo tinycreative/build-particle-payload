@@ -1,6 +1,17 @@
 const padStart = require('lodash.padstart');
 const map = require('lodash.map');
 
+// 0: animationSolid
+// 1: animationChase
+// 2: animationRainbowSpin
+// 3: animationHeartbeat
+// 4: animationRandomParty
+// 5: animationPulse
+// 6: animationTwinkle
+// 7: animationGauge
+// 8: animationGaugeColors
+// 9: animationTimerColors
+
 const ANIMATION_IDS = {
   SOLID: 0,
   CHASE: 1,
