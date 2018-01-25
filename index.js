@@ -24,12 +24,34 @@ const ANIMATION_IDS = {
   TIMER: 9,
 };
 
-module.exports = options => {
-  const payload = [
-    ANIMATION_IDS[options.animation_id] || 0,
-    options.setting || 0,
-    options.speed || 500,
-  ];
+const ALERT_INDEX = 0;
+const IDLE_INDEX = 1;
+const LISTENING_INDEX = 2;
+const DOUBLE_CLICK_INDEX = 3;
+const TRIPPLE_CLICK_INDEX = 4;
+const LONG_CLICK_INDEX = 5;
+const TIMESTAMP_INDEX = 6;
+
+const TRIGGER_INDEXES = {
+  ALERT: ALERT_INDEX,
+  IDLE: IDLE_INDEX,
+  LISTENING: LISTENING_INDEX,
+  DOUBLE_CLICK: DOUBLE_CLICK_INDEX,
+  TRIPPLE_CLICK: TRIPPLE_CLICK_INDEX,
+  LONG_CLICK: LONG_CLICK_INDEX,
+  TIMESTAMP: TIMESTAMP_INDEX,
+};
+
+module.exports = (type, options) => {
+  const payload = [];
+
+  if (type === 'settings') {
+    payload.push(TRIGGER_INDEXES[options.trigger_id] || 0);
+  }
+
+  payload.push(ANIMATION_IDS[options.animation_id] || 0);
+  payload.push(options.setting || 0);
+  payload.push(options.speed || 500);
 
   map(options.colors, (color, key) => {
     payload.push(color.r || 0);
