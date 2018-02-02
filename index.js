@@ -15,6 +15,7 @@ const map = require('lodash.map');
 const ANIMATION_IDS = {
   SOLID: 0,
   CHASE: 1,
+  RAINBOW_SPIN: 2,
   HEARTBEAT: 3,
   PARTY_MODE: 4,
   PULSING: 5,
@@ -51,7 +52,7 @@ module.exports = (type, options) => {
 
   payload.push(ANIMATION_IDS[options.animation_id] || 0);
   payload.push(options.setting || 0);
-  payload.push(options.speed || 500);
+  payload.push(options.speed || 0);
 
   map(options.colors, (color, key) => {
     payload.push(color.r || 0);
