@@ -25,6 +25,19 @@ const ANIMATION_IDS = {
   TIMER: 9,
 };
 
+const SETTINGS_KEY = {
+  SOLID: 'setting',
+  CHASE: 'setting',
+  RAINBOW_SPIN: 'setting',
+  HEARTBEAT: 'setting',
+  PARTY_MODE: 'setting',
+  PULSING: 'setting',
+  TWINKLE: 'setting',
+  GAUGE: 'slider',
+  STATUS_LIGHT: 'slider',
+  TIMER: 'timespan',
+};
+
 const ALERT_INDEX = 0;
 const IDLE_INDEX = 1;
 const LISTENING_INDEX = 2;
@@ -51,7 +64,11 @@ module.exports = (type, options) => {
   }
 
   payload.push(ANIMATION_IDS[options.animation_id] || 0);
-  payload.push(options.setting || 0);
+
+  // get the settings value
+  const key = SETTINGS_KEY[options.animation_id];
+  payload.push(options[key] || 0);
+
   payload.push(options.speed || 0);
 
   map(options.colors, (color, key) => {
