@@ -66,9 +66,10 @@ const SPEEDS = {
 };
 
 const SPEED_INTERPOLATIONS = {
-  RAINBOW_SPIN: [30, 2],
   CHASE: [150, 30],
+  RAINBOW_SPIN: [30, 2],
   HEARTBEAT: [100, 30],
+  PARTY_MODE: [500, 50],
   PULSING: [20, 300],
   TWINKLE: [1, 10],
   TIMER: [20, 300],
