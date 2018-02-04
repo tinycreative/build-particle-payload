@@ -1,5 +1,6 @@
 const padStart = require('lodash.padstart');
 const map = require('lodash.map');
+const everpolate = require('everpolate');
 
 // 0: animationSolid
 // 1: animationChase
@@ -56,6 +57,35 @@ const TRIGGER_INDEXES = {
   TIMESTAMP: TIMESTAMP_INDEX,
 };
 
+const SPEEDS = {
+  VERY_SLOW: 100,
+  SLOW: 300,
+  MEDIUM: 500,
+  FAST: 700,
+  VERY_FAST: 900,
+};
+
+const SPEED_INTERPOLATIONS = {
+  RAINBOW_SPIN: [30, 2],
+  CHASE: [150, 30],
+  HEARTBEAT: [100, 30],
+  PULSING: [20, 300],
+  TWINKLE: [1, 10],
+  TIMER: [20, 300],
+};
+
+const interpolateSpeed = (animationId, speedId) => {
+  const interpolation = SPEED_INTERPOLATIONS[animationId];
+  const speed = SPEEDS[speedId];
+
+  if (interpolation) {
+    const outputSpeed = everpolate.linear(speed, [100, 900], interpolation)[0];
+    return Math.round(outputSpeed);
+  }
+
+  return speedId;
+};
+
 module.exports = (type, options) => {
   const payload = [];
 
@@ -69,7 +99,9 @@ module.exports = (type, options) => {
   const key = SETTINGS_KEY[options.animation_id];
   payload.push(options[key] || 0);
 
-  payload.push(options.speed || 0);
+  // interpolate the speed
+  const speed = interpolateSpeed(options.animation_id, options.speed_id);
+  payload.push(speed || 0);
 
   map(options.colors, (color, key) => {
     payload.push(color.r || 0);

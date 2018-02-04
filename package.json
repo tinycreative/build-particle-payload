@@ -1,11 +1,12 @@
 {
   "name": "build-particle-payload",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "test": "jest --watch"
   },
   "dependencies": {
+    "everpolate": "0.0.3",
     "lodash.map": "4.6.0",
     "lodash.padstart": "4.6.1"
   },

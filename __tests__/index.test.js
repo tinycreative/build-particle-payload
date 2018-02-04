@@ -74,3 +74,57 @@ test('it handles timer types', () => {
   const output = '009010000255000255000255000';
   expect(buildPayload('alert', input)).toEqual(output);
 });
+
+test('it builds the speed correctly', () => {
+  const tests = [
+    {
+      input: {
+        animation_id: 'TIMER',
+        speed_id: 'MEDIUM',
+      },
+      output: '009000160',
+    },
+    {
+      input: {
+        animation_id: 'TIMER',
+        speed_id: 'SLOW',
+      },
+      output: '009000090',
+    },
+    {
+      input: {
+        animation_id: 'HEARTBEAT',
+        speed_id: 'MEDIUM',
+      },
+      output: '003000065',
+    },
+    {
+      input: {
+        animation_id: 'HEARTBEAT',
+        speed_id: 'SLOW',
+      },
+      output: '003000083',
+    },
+  ];
+
+  tests.map(t => {
+    expect(buildPayload('alert', t.input)).toEqual(t.output);
+  });
+});
+
+test('it handles a differnt speed id', () => {
+  const input = {
+    animation_id: 'TIMER',
+    speed_id: 'BLALALS',
+  };
+  const output = '009000000';
+  expect(buildPayload('alert', input)).toEqual(output);
+});
+
+test('it handles a missing speed id', () => {
+  const input = {
+    animation_id: 'TIMER',
+  };
+  const output = '009000000';
+  expect(buildPayload('alert', input)).toEqual(output);
+});
