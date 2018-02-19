@@ -92,6 +92,8 @@ module.exports = (type, options) => {
 
   if (type === 'settings') {
     payload.push(TRIGGER_INDEXES[options.trigger_id] || 0);
+  } else {
+    payload.push(ALERT_INDEX);
   }
 
   payload.push(ANIMATION_IDS[options.animation_id] || 0);
