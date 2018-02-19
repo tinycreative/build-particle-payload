@@ -77,14 +77,14 @@ const SPEED_INTERPOLATIONS = {
 
 const interpolateSpeed = (animationId, speedId) => {
   const interpolation = SPEED_INTERPOLATIONS[animationId];
-  const speed = SPEEDS[speedId];
+  const speed = SPEEDS[speedId] || 0;
 
-  if (interpolation) {
+  if (interpolation && speed > 0) {
     const outputSpeed = everpolate.linear(speed, [100, 900], interpolation)[0];
     return Math.round(outputSpeed);
   }
 
-  return speedId;
+  return speed;
 };
 
 module.exports = (type, options) => {
