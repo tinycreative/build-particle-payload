@@ -335,3 +335,25 @@ test('it builds the guage payload', () => {
     index: 0,
   });
 });
+
+test('it builds the water payload', () => {
+  const input = {
+    trigger_id: 'WATER',
+    animation_id: 'PULSING',
+    colors: [{ r: 0, g: 255, b: 255 }],
+    speed_id: 'SLOW',
+    water: 240,
+    pending: true,
+  };
+  const output = buildPayload('settings', input);
+  expect(beaconParse(output)).toEqual({
+    animationId: 5,
+    color1: input.colors[0],
+    color2: {},
+    color3: {},
+    color4: {},
+    setting: input.water,
+    speed: 90,
+    index: 7,
+  });
+});

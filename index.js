@@ -37,6 +37,7 @@ const SETTINGS_KEY = {
   GAUGE: 'slider',
   STATUS_LIGHT: 'slider',
   TIMER: 'timespan',
+  WATER: 'water',
 };
 
 const ALERT_INDEX = 0;
@@ -46,6 +47,7 @@ const DOUBLE_CLICK_INDEX = 3;
 const TRIPPLE_CLICK_INDEX = 4;
 const LONG_CLICK_INDEX = 5;
 const TIMESTAMP_INDEX = 6;
+const WATER_INDEX = 7;
 
 const TRIGGER_INDEXES = {
   ALERT: ALERT_INDEX,
@@ -55,6 +57,7 @@ const TRIGGER_INDEXES = {
   TRIPPLE_CLICK: TRIPPLE_CLICK_INDEX,
   LONG_CLICK: LONG_CLICK_INDEX,
   TIMESTAMP: TIMESTAMP_INDEX,
+  WATER: WATER_INDEX,
 };
 
 const SPEEDS = {
@@ -98,8 +101,11 @@ module.exports = (type, options) => {
 
   payload.push(ANIMATION_IDS[options.animation_id] || 0);
 
-  // get the settings value
-  const key = SETTINGS_KEY[options.animation_id];
+  // get the alternate settings value from the trigger or animation
+  const key =
+    SETTINGS_KEY[options.trigger_id] ||
+    SETTINGS_KEY[options.animation_id] ||
+    'setting';
   payload.push(options[key] || 0);
 
   // interpolate the speed
