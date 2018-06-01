@@ -357,3 +357,40 @@ test('it builds the water payload', () => {
     index: 7,
   });
 });
+
+test('it builds the webhook guage payload', () => {
+  const input = {
+    trigger_id: 'WEBHOOK',
+    animation_id: 'GAUGE',
+    colors: [{ r: 0, g: 255, b: 255 }],
+    setting: 10,
+  };
+  const output = buildPayload('settings', input);
+  expect(beaconParse(output)).toEqual({
+    animationId: 7,
+    color1: input.colors[0],
+    color2: {},
+    color3: {},
+    color4: {},
+    setting: input.setting,
+    speed: 0,
+    index: 0,
+  });
+});
+
+test('it builds a payload for clearing data', () => {
+  const input = {
+    trigger_id: 'WATER',
+  };
+  const output = buildPayload('settings', input);
+  expect(beaconParse(output)).toEqual({
+    animationId: 0,
+    color1: {},
+    color2: {},
+    color3: {},
+    color4: {},
+    setting: 0,
+    speed: 0,
+    index: 7,
+  });
+});

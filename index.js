@@ -1,5 +1,6 @@
 const padStart = require('lodash.padstart');
 const map = require('lodash.map');
+const get = require('lodash.get');
 const everpolate = require('everpolate');
 
 // 0: animationSolid
@@ -102,11 +103,12 @@ module.exports = (type, options) => {
   payload.push(ANIMATION_IDS[options.animation_id] || 0);
 
   // get the alternate settings value from the trigger or animation
-  const key =
-    SETTINGS_KEY[options.trigger_id] ||
-    SETTINGS_KEY[options.animation_id] ||
-    'setting';
-  payload.push(options[key] || 0);
+  const setting =
+    get(options, SETTINGS_KEY[options.trigger_id]) ||
+    get(options, SETTINGS_KEY[options.animation_id]) ||
+    get(options, 'setting', 0);
+
+  payload.push(setting);
 
   // interpolate the speed
   const speed = interpolateSpeed(options.animation_id, options.speed_id);
